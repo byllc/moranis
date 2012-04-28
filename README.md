@@ -20,3 +20,7 @@ I recommend not using this for root accounts.
 • If any errors were encountered the old key file remains in place
 • Otherwise the new key file remains in place
 
+#Dependencies
+
+• Capistrano
+
