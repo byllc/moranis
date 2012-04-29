@@ -88,7 +88,7 @@ key_master.revert_for_group(group)
 ##TODO
 * Add support for a key database as well as the current yml file
 * Add more fault tolerance and error handling, add checking to see if the root account is being synced and provide a warning
-* Tests (There isn't much to test yet and it is mostly remote calls)
+* More useful Tests (There isn't much to test yet and it is mostly remote calls which I haven't figured out a clever way to test)
 * Support for ssh2/openssh2
 * Add Sinatra front end for simple hosted management
  
