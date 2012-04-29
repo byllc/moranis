@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 require "moranis"
 
-action = ARGV[0]
-group  = ARGV[1]
-config_path = ARGV[2] || ENV["MORANIS_CONFIG_PATH"]
+action = ARGV[0] || ""
+group  = ARGV[1] || ""
 
-key_master = Moranis::KeyMaster.new(config_path)
+config_path = ARGV[2] || ENV["MORANIS_CONFIG_PATH"] || "#{Dir.pwd}/config/moranis.yml"
+
+key_master = Moranis::KeyMaster.new(config_path) if config_path
 
 case action
 when "sync"  ; key_master.run_for_group(group)
@@ -15,7 +16,7 @@ else
      ====================================================================
      Moranis: Clortho the key master
      
-     USAGE: key_master <sync|revert> <group>
+     USAGE: key_master <sync|revert> <group> <optional config name>
      
      ====================================================================
   HELP

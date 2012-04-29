@@ -32,11 +32,15 @@ A binary called key_master is installed with the gem. The binary accepts two req
 The action you want to take for the group, The group you want to sync the keys for, and a config file that contains the users
 hosts and keys.  
 
-The config file portion can be removed if you set MORANIS_CONFIG_PATH in your environment to the path to your config file
+The config file portion can be removed if you set MORANIS_CONFIG_PATH in your environment to the path to your config file or if your
+present working directory is relative to the config file as ./config/moranis.yml
+
 The config file format is as follows
 
 ```bash
 key_master sync group_name_1 ./config/config.yml
+
+key_master sync group_name_1
 ````
 
 ```haml
