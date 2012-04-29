@@ -80,4 +80,5 @@ key_master.revert_for_group(group)
 * Add support for a key database as well as the current yml file
 * Add more fault tolerance and error handling, add checking to see if the root account is being synced and provide a warning
 * Tests
+* Support for ssh2/openssh2
  
