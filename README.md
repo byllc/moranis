@@ -33,6 +33,10 @@ hosts and keys.
 The config file portion can be removed if you set MORANIS_CONFIG_PATH in your environment to the path to your config file
 The config file format is as follows
 
+```bash
+key_master sync group_name_1 ./config/config.yml
+````
+
 ```haml
 
 group_name_1:
@@ -58,3 +62,9 @@ group_name_2:
     - ...
  
 ````
+
+#TODO
+• Add support for a key database as well as the current yml file
+• Add more fault tolerance and error handling, add checking to see if the root account is being synced and provide a warning
+• Tests
+ 
