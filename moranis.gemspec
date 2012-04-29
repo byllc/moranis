@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "moranis"
   s.version     = Moranis::VERSION
   s.authors     = ["Bill Chapman"]
-  s.email       = ["wwchapman@gmail.com"]
+  s.email       = ["byllc@overnothing.com"]
   s.homepage    = ""
   s.summary     = %q{TODO: Write a gem summary}
   s.description = %q{TODO: Write a gem description}
@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
 
   # specify any dependencies here; for example:
   # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
+  s.add_runtime_dependence 'net/ssh'
+  s.add_runtime_dependence 'net/ssh/gateway'
+  s.add_runtime_dependence 'yaml'  
 end
 
