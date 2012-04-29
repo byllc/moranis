@@ -86,4 +86,5 @@ key_master.revert_for_group(group)
 * Add more fault tolerance and error handling, add checking to see if the root account is being synced and provide a warning
 * Tests
 * Support for ssh2/openssh2
+* Add Sinatra front end for simple hosted management
  
