@@ -2,9 +2,10 @@ module Moranis
   class KeyMaster
     
     #TODO: move this in to a configuration object
-    #this file is either authorized_keys, authorized_keys2 or authorized depending on ssh version
+    #typical file is either authorized_keys, #authorized_keys2 or authorized depending on ssh version
     #I only needed ssh1 support for my situation but this is here for convenience and can be changed 
-    #by setting Moranis::Keymaster::KEY_FILE = 
+    #by setting Moranis::Keymaster::KEY_FILE = "authorized_keys2"
+    #given that we have not yet added support for ssh2 in the output file format this is probably not particularly useful yet
     KEY_FILE = "authorized_keys"
     
     def initialize(config_path)
@@ -26,24 +27,28 @@ module Moranis
           remote_run = Moranis::RemoteRun.new(host,user)
           
           #make sure the temporary auth file exists
-          remote_run.commands << "touch ~/.ssh/authorized_keys.tmp"
+          remote_run.commands << "touch ~/.ssh/#{KEY_FILE}.tmp"
           
           #make sure the permissions are set up properly
-          remote_run.commands << "chmod 600 ~/.ssh/authorized_keys.tmp"
+          remote_run.commands << "chmod 600 ~/.ssh/#{KEY_FILE}.tmp"
           
           #clear the temporary key file
-          remote_run.commands << "cat /dev/null > ~/.ssh/authorized_keys.tmp"
+          remote_run.commands << "cat /dev/null > ~/.ssh/#{KEY_FILE}.tmp"
           
           #append the keys to the file
           keys.each do |key|
-            remote_run.commands << "echo \"#{key}\" >> ~/.ssh/authorized_keys.tmp"
+            remote_run.commands << "echo \"#{key}\" >> ~/.ssh/#{KEY_FILE}.tmp"
           end
           
           #swap the key files
-          remote_run.commands << "mv ~/.ssh/authorized_keys ~/.ssh/authorized_keys.bak"
-          remote_run.commands << "mv ~/.ssh/authorized_keys.tmp ~/.ssh/authorized_keys"
+          remote_run.commands << "mv ~/.ssh/#{KEY_FILE} ~/.ssh/#{KEY_FILE}.bak"
+          remote_run.commands << "mv ~/.ssh/#{KEY_FILE}.tmp ~/.ssh/#{KEY_FILE}"
           
-          puts remote_run.execute
+          begin
+            remote_run.execute 
+          rescue Net::SSH::AuthenticationFailed 
+            puts "You do not have access to #{user} on #{host}"
+          end
         end
       end
     end
@@ -57,15 +62,15 @@ module Moranis
         users.each do |user|
           remote_run = Moranis::RemoteRun.new(host,user)
           begin
-            remote_run.commands << "if [ -f ~/.ssh/authorized_keys.bak  ] then mv ~/.ssh/authorized_keys.bak ~/.ssh/authorized_keys fi"
+            remote_run.commands << "if [ -f ~/.ssh/#{KEY_FILE}.bak  ] then mv ~/.ssh/#{KEY_FILE}.bak ~/.ssh/#{KEY_FILE} fi"
             remote_run.execute
           rescue
             #we tried as the user, the keys file may be messed up or our key does not exist in the list any longer
             # lets try as root
             root_remote_run = Moranis::RemoteRun.new(host,"root")
-            root_remote_run = "su - #{user}"
-            root_remote_run.commands << "if [ -f ~/.ssh/authorized_keys.bak  ] then mv ~/.ssh/authorized_keys.bak ~/.ssh/authorized_keys fi"
-            root_remote_run.execute rescue "You may not have root priviledge for reversion"
+            root_remote_run.commands << "su - #{user}"
+            root_remote_run.commands << "if [ -f ~/.ssh/#{KEY_FILE}.bak  ] then mv ~/.ssh/#{KEY_FILE}.bak ~/.ssh/#{KEY_FILE} fi"
+            root_remote_run.execute rescue Net::SSH::AuthenticationFailed (puts "You may not have access to root on #{host}")
           end
         end
       end

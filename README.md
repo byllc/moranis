@@ -1,10 +1,12 @@
 ##Moranis
 
-Centralized Public Key management for small teams with lots of servers
+Centralized Public Key management for small teams with lots of servers 
 
 #Why?
  
 Because my team has many servers, many developers and few system administrators and LDAP is great but it adds more overhead.
+This project currently only support SSH1/openSSH1 because in practice I have yet to need support for the second generation variants
+and did not want to have to write out two different key file formats but adding support should not be difficult
 
 #How?
 
