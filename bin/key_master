@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+require "moranis"
+
+action = ARGV[0]
+group  = ARGV[1]
+config_path = ARGV[2] || ENV["MORANIS_CONFIG_PATH"]
+
+key_master = Moranis::KeyMaster.new(config_path)
+
+case action
+when "sync"  ; key_master.run_for_group(group)
+when "revert"; key_master.revert_for_group(group)
+else
+  puts <<-HELP
+     ====================================================================
+     Moranis: Clortho the key master
+     
+     USAGE: key_master <sync|revert> <group>
+     
+     ====================================================================
+  HELP
+end
