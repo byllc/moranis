@@ -1,14 +1,14 @@
-##Moranis
+#Moranis
 
 Centralized Public Key management for small teams with lots of servers 
 
-#Why?
+##Why?
  
 Because my team has many servers, many developers and few system administrators and LDAP is great but it adds more overhead.
 This project currently only support SSH1/openSSH1 because in practice I have yet to need support for the second generation variants
 and did not want to have to write out two different key file formats but adding support should not be difficult
 
-#How?
+##How?
 
 The basic idea is that anyone on the team who already has key based access as a specific user can be trusted to grant that same access
 to others. You or your system administrator may disagree but in practice this makes sense for small to medium sized teams.
@@ -25,7 +25,7 @@ This means that a team member with root access may need to perform the revert fo
 * Test the new key file
 * If any errors were encountered the old key file remains in place
 
-#Usage
+##Usage
 A binary called key_master is installed with the gem. The binary accepts two required and one optional paramters
 The action you want to take for the group, The group you want to sync the keys for, and a config file that contains the users
 hosts and keys.  
@@ -63,7 +63,7 @@ group_name_2:
  
 ````
 
-#TODO
+##TODO
 * Add support for a key database as well as the current yml file
 * Add more fault tolerance and error handling, add checking to see if the root account is being synced and provide a warning
 * Tests
