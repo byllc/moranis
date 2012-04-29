@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Moranis::VERSION
   s.authors     = ["Bill Chapman"]
   s.email       = ["byllc@overnothing.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/byllc/moranis"
   s.summary     = %q{ SSH Key management for teams}
   s.description = %q{ Standalone centralized ssh key management for teams }
 
@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
+  s.add_development_dependency "minitest"
 end
 

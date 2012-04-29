@@ -1,4 +1,6 @@
 module Moranis
+  class NoValidConfigurationFoundError < StandardError; end
+  
   class KeyMaster
     
     #TODO: move this in to a configuration object
@@ -8,18 +10,37 @@ module Moranis
     #given that we have not yet added support for ssh2 in the output file format this is probably not particularly useful yet
     KEY_FILE = "authorized_keys"
     
-    def initialize(config_path)
-      @config = YAML::load(File.open(config_path))
+    def initialize(config_data)
+      
+      @config = if config_data.is_a? Hash
+        config_data
+      elsif config_data.is_a? String
+        YAML::load(File.open(config_data))
+      else
+        raise NoValidConfigurationFoundError
+      end
     end
     
     def groups
       @config.keys
     end
   
+    def keys_for_group(group)
+      @config[group]["public_keys"]
+    end
+    
+    def hosts_for_group(group)
+     @config[group]["hosts"]
+    end
+    
+    def users_for_group(group)
+      @config[group]["users"]  
+    end
+    
     def run_for_group(group)
-      hosts = @config[group]["hosts"]
-      keys  = @config[group]["keys"]
-      users = @config[group]["users"]
+      hosts = hosts_for_group(group)
+      keys  = keys_for_group(group)
+      users = users_for_group(group)
       
       hosts.each do |host|
         users.each do |user|

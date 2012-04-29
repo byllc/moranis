@@ -53,7 +53,7 @@ group_name_1:
   users: 
     - user1
     - user2
-  keys:
+  public_keys:
     - ssh-dss key1abcdeif....
     - ssh-rsa key2abcdeif....
 
@@ -65,7 +65,7 @@ group_name_2:
   users:
     - user1a
     - user2a
-  keys:
+  public_keys:
     - ...
  
 ````
@@ -74,6 +74,10 @@ group_name_2:
 require 'moranis'
 
 key_master = Moranis::KeyMaster.new(config_path)
+
+#the KeyMaster initializer can also take a hash
+key_master = Moranis::KeyMaster.new({'group_name' => { 'hosts' => [], 'keys' => [], 'users' => []}})
+
 
 #sync the keys with the local configuration on the specified group
 key_master.run_for_group(group)
