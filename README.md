@@ -26,6 +26,8 @@ This means that a team member with root access may need to perform the revert fo
 * If any errors were encountered the old key file remains in place
 
 ##Usage
+
+###Standalone
 A binary called key_master is installed with the gem. The binary accepts two required and one optional paramters
 The action you want to take for the group, The group you want to sync the keys for, and a config file that contains the users
 hosts and keys.  
@@ -62,7 +64,18 @@ group_name_2:
     - ...
  
 ````
+###Use From your code
+```ruby
+require 'moranis'
 
+key_master = Moranis::KeyMaster.new(config_path)
+
+#sync the keys with the local configuration on the specified group
+key_master.run_for_group(group)
+
+#revert the keys fro the specified group to the most recent backup
+key_master.revert_for_group(group)
+````
 ##TODO
 * Add support for a key database as well as the current yml file
 * Add more fault tolerance and error handling, add checking to see if the root account is being synced and provide a warning
