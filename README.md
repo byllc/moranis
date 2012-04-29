@@ -35,13 +35,14 @@ hosts and keys.
 The config file portion can be removed if you set MORANIS_CONFIG_PATH in your environment to the path to your config file or if your
 present working directory is relative to the config file as ./config/moranis.yml
 
-The config file format is as follows
 
 ```bash
 key_master sync group_name_1 ./config/config.yml
 
 key_master sync group_name_1
 ````
+
+The config file format is as follows
 
 ```haml
 
