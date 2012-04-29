@@ -20,10 +20,10 @@ I recommend not using this for root accounts. Basically always make sure there i
 rogue changes that render an account non accessible. The revert feature will fall back to root if the original user is not accessible.
 This means that a team member with root access may need to perform the revert for a user that does not have that access
  
-• Connect to each host in the host list for a given user
-• Write out the new authorized_keys.tmp file based on the locally enabled keys
-• Test the new key file
-• If any errors were encountered the old key file remains in place
+* Connect to each host in the host list for a given user
+* Write out the new authorized_keys.tmp file based on the locally enabled keys
+* Test the new key file
+* If any errors were encountered the old key file remains in place
 
 #Usage
 A binary called key_master is installed with the gem. The binary accepts two required and one optional paramters
@@ -64,7 +64,7 @@ group_name_2:
 ````
 
 #TODO
-• Add support for a key database as well as the current yml file
-• Add more fault tolerance and error handling, add checking to see if the root account is being synced and provide a warning
-• Tests
+* Add support for a key database as well as the current yml file
+* Add more fault tolerance and error handling, add checking to see if the root account is being synced and provide a warning
+* Tests
  
